@@ -1,7 +1,7 @@
 import React, { ReactElement, useMemo } from 'react';
-import { ColumnDef } from '@tanstack/react-table';
+import { ColumnDef, Table as TanStackTable } from '@tanstack/react-table';
 import { Person, personData } from '../data/person.data';
-import Table from '../components/table';
+import Table, { TableFooter } from '../components/table';
 
 const TanstackWrapperPage: React.FC = (): ReactElement => {
   const data: Person[] = useMemo(() => personData, []);
@@ -27,7 +27,7 @@ const TanstackWrapperPage: React.FC = (): ReactElement => {
   return (
     <div>
       <h1>Tanstack Iceberg</h1>
-      <Table columns={columns} data={data}/>
+      <Table columns={columns} data={data} footerComponent={TableFooter} />
     </div>
   );
 };
