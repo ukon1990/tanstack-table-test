@@ -1,12 +1,12 @@
 import { useMemo, useState } from "react";
 import { Person, personData } from "../../data/person.data";
 import { getCoreRowModel, getExpandedRowModel, useReactTable } from "@tanstack/react-table";
-import Table, { getExpandableColumn } from "../../components/table";
+import Table, { getArrowColumn, getExpandableColumn } from "../../components/table";
 import { GridColumn } from "../../components/table/Table";
 import { FormCheck } from "react-bootstrap";
 
 export const ExpandableTablePage = () => {
-    const [useGrid, setUseGrid] = useState(false);
+    const [useGrid, setUseGrid] = useState(true);
     const data: Person[] = useMemo(() => personData, []);
     const columns: GridColumn<Person>[] = useMemo(
         () => [
@@ -29,6 +29,7 @@ export const ExpandableTablePage = () => {
                 gridSize: '1fr'
             },
             getExpandableColumn(),
+            // getArrowColumn(),
         ],
         []
     );
