@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage'
 import TanstackPage from './pages/TanstackPage';
 import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
 import NativeTablePage from './pages/NativeTablePage';
-import TanstackWrapperPage from './pages/TanstackWrapperPage';
+import TanstackWrapperPage from './pages/wrapper/TanstackWrapperPage';
 
 function App() {
 
