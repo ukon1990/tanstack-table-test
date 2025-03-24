@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage'
 import TanstackPage from './pages/TanstackPage';
 import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
 import NativeTablePage from './pages/NativeTablePage';
+import TanstackWrapperPage from './pages/TanstackWrapperPage';
 
 function App() {
 
@@ -21,16 +22,20 @@ function App() {
                 <Nav.Link as={Link} to="/">Home</Nav.Link>
                 <Nav.Link as={Link} to="native">Native html + BS</Nav.Link>
                 <Nav.Link as={Link} to="tanstack">Tanstack headless</Nav.Link>
+                <Nav.Link as={Link} to="tanstack-iceberg">Tanstack Iceberg</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/native" element={<NativeTablePage />} />
-          <Route path="/tanstack" element={<TanstackPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <Container>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/native" element={<NativeTablePage />} />
+            <Route path="/tanstack" element={<TanstackPage />} />
+            <Route path="/tanstack-iceberg" element={<TanstackWrapperPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Container>
       </BrowserRouter>
     </>
   )

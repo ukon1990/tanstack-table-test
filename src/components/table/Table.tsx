@@ -1,34 +1,18 @@
-import React, { ReactElement, useMemo } from 'react';
-import { useReactTable, ColumnDef, getCoreRowModel, flexRender } from '@tanstack/react-table';
-import { Person, personData } from '../data/person.data';
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { ReactElement } from "react";
 
-const TanstackPage: React.FC = (): ReactElement => {
-  const data: Person[] = useMemo(() => personData, []);
+interface Props<DataType> {
+    className?: string;
+    data: DataType[];
+    columns: ColumnDef<DataType>[];
+    footerComponent?: (table?: ReturnType<typeof useReactTable>) => ReactElement;
+}
 
-  const columns: ColumnDef<Person>[] = useMemo(
-    () => [
-      {
-        accessorKey: 'name',
-        header: 'Name',
-      },
-      {
-        accessorKey: 'age',
-        header: 'Age',
-      },
-      {
-        accessorKey: 'address.street',
-        header: 'Street adress',
-      },
-    ],
-    []
-  );
-
+const Table = <DataType = any>({data, columns, className, footerComponent: Footer}: Props<DataType>): ReactElement => {
   const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() });
-  
-  return (
-    <div>
-      <h1>Tanstack Headless</h1>
-      <table className='table'>
+
+    return (
+    <table className={`table ${className}`}>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
@@ -56,9 +40,8 @@ const TanstackPage: React.FC = (): ReactElement => {
             </tr>
           ))}
         </tbody>
-      </table>
-    </div>
-  );
-};
+        {Footer && <Footer table={table}/>}
+    </table>
+)};
 
-export default TanstackPage;
+export default Table;
