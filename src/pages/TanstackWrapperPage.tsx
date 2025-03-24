@@ -1,5 +1,5 @@
-import React, { ReactElement, useMemo } from 'react';
-import { ColumnDef, Table as TanStackTable } from '@tanstack/react-table';
+import React, { ReactElement, useMemo, useState } from 'react';
+import { ColumnDef, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 import { Person, personData } from '../data/person.data';
 import Table, { TableFooter } from '../components/table';
 
@@ -10,24 +10,35 @@ const TanstackWrapperPage: React.FC = (): ReactElement => {
     () => [
       {
         accessorKey: 'name',
-        header: 'Name',
+        header: 'Name'
       },
       {
         accessorKey: 'age',
-        header: 'Age',
+        header: 'Age'
       },
       {
         accessorKey: 'address.street',
-        header: 'Street adress',
+        header: 'Street adress'
+      },
+      {
+        accessorKey: 'address.city',
+        header: 'City'
       },
     ],
     []
   );
+  const table = useReactTable({
+    columns,
+    data,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+});
+
 
   return (
     <div>
       <h1>Tanstack Iceberg</h1>
-      <Table columns={columns} data={data} footerComponent={TableFooter} />
+      <Table table={table} />
     </div>
   );
 };

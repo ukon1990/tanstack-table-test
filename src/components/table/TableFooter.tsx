@@ -1,10 +1,10 @@
 import { flexRender, Table } from "@tanstack/react-table";
 import { ReactElement } from "react";
 
-interface Props<DataType> {
+export interface TableFooterProps<DataType> {
     table?: Table<DataType>;
 }
-export const TableFooter = <DataType = any>({table}: Props<DataType>): ReactElement => {
+export const TableFooter = <DataType = any>({table}: TableFooterProps<DataType>): ReactElement => {
     if (table) {
         return (
             <tfoot>

@@ -22,7 +22,7 @@ function App() {
                 <Nav.Link as={Link} to="/">Home</Nav.Link>
                 <Nav.Link as={Link} to="native">Native html + BS</Nav.Link>
                 <Nav.Link as={Link} to="tanstack">Tanstack headless</Nav.Link>
-                <Nav.Link as={Link} to="tanstack-iceberg">Tanstack Iceberg</Nav.Link>
+                <Nav.Link as={Link} to="tanstack-wrapper">Tanstack wrapper</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -32,7 +32,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/native" element={<NativeTablePage />} />
             <Route path="/tanstack" element={<TanstackPage />} />
-            <Route path="/tanstack-iceberg" element={<TanstackWrapperPage />} />
+            <Route path="/tanstack-wrapper" element={<TanstackWrapperPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Container>

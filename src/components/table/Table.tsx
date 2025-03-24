@@ -1,48 +1,43 @@
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable, Table as TanstackTable, Header } from "@tanstack/react-table";
-import { ReactElement, JSXElementConstructor } from "react";
+import { Table as ReactTable } from "@tanstack/react-table";
+import { ReactElement } from "react";
+import { TableFooterProps } from "./TableFooter";
+import { TableRow, TableRowProps } from "./TableRow";
+import { TableHeader, TableHeaderProps } from "./TableHeader";
 
-interface Props<DataType extends object> {
+interface TableProps<DataType extends object> {
     className?: string;
-    data: DataType[];
-    columns: ColumnDef<DataType>[];
-    footerComponent?: null | ReactElement<unknown, string | JSXElementConstructor<any>>;
+    table: ReactTable<DataType>;
+    /**
+     * Overrides the theader element and it's content, allowing for custom logic
+     */
+    headerComponent?: (props: TableHeaderProps<DataType>) => ReactElement;
+    /**
+     * Overrides the tr element and it's content, allowing for custom logic
+     */
+    rowComponent?: (props: TableRowProps<DataType>) => ReactElement;
+    /**
+     * Adds a footer to the table.
+     * @param props 
+     * @returns 
+     */
+    footerComponent?: (props: TableFooterProps<DataType>) => ReactElement | null;
 }
 
 
-const Table = <DataType extends object>({ data, columns, className, footerComponent: FooterComponent }: Props<DataType>): JSX.Element => {
-    const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() });
-
-    return (
+const Table = <DataType extends object>({
+    className,
+    table,
+    headerComponent: Header = TableHeader,
+    rowComponent: RowComponent = TableRow,
+    footerComponent: Footer,
+}: TableProps<DataType>): ReactElement => (
         <table className={`table ${className}`}>
-            <thead>
-                {table.getHeaderGroups().map(headerGroup => (
-                    <tr key={headerGroup.id}>
-                        {headerGroup.headers.map(header => (
-                            <th key={header.id}>
-                                {header.isPlaceholder ? '' :
-                                    flexRender(
-                                        header.column.columnDef.header,
-                                        header.getContext()
-                                    )}
-                            </th>
-                        ))}
-                    </tr>
-                ))}
-            </thead>
+            <Header table={table} />
             <tbody>
-                {table.getRowModel().rows.map(row => (
-                    <tr key={row.id}>
-                        {row.getVisibleCells().map(cell => (
-                            <td key={cell.id}>
-                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                            </td>
-                        ))}
-                    </tr>
-                ))}
+                {table.getRowModel().rows.map((row, index) => (<RowComponent row={row} index={index} key={row.id} />))}
             </tbody>
-            {FooterComponent && <FooterComponent table={table}/>}
+            {Footer && <Footer table={table} />}
         </table>
-    )
-};
+    );
 
 export default Table;
