@@ -1,9 +1,9 @@
 import React, { ReactElement, useMemo } from 'react';
-import { ColumnDef, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { ColumnDef, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { Person, personData } from '../../data/person.data';
-import Table, { TablePagination } from '../../components/table';
+import Table from '../../components/table';
 
-const TanstackWrapperPage: React.FC = (): ReactElement => {
+const SortableTablePage: React.FC = (): ReactElement => {
     const data: Person[] = useMemo(() => personData, []);
     const columns: ColumnDef<Person>[] = useMemo(
         () => [
@@ -30,15 +30,16 @@ const TanstackWrapperPage: React.FC = (): ReactElement => {
         columns,
         data,
         getCoreRowModel: getCoreRowModel(),
+        getSortedRowModel: getSortedRowModel(),
     });
 
 
     return (
         <div>
-            <h1>Base table</h1>
-            <Table table={table} footerComponent={TablePagination} />
+            <h1>Sortable table headers</h1>
+            <Table table={table} />
         </div>
     );
 };
 
-export default TanstackWrapperPage;
+export default SortableTablePage;

@@ -1,10 +1,11 @@
 import './App.css'
-import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import HomePage from './pages/HomePage'
 import TanstackPage from './pages/TanstackPage';
 import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
 import NativeTablePage from './pages/NativeTablePage';
 import TanstackWrapperPage from './pages/wrapper/TanstackWrapperPage';
+import TableWithPaginationPage from './pages/wrapper/TableWithPaginationPage';
 
 function App() {
 
@@ -22,7 +23,17 @@ function App() {
                 <Nav.Link as={Link} to="/">Home</Nav.Link>
                 <Nav.Link as={Link} to="native">Native html + BS</Nav.Link>
                 <Nav.Link as={Link} to="tanstack">Tanstack headless</Nav.Link>
-                <Nav.Link as={Link} to="tanstack-wrapper">Tanstack wrapper</Nav.Link>
+                <NavDropdown title="Tanstack wrapper" id="basic-nav-dropdown">
+                  <NavDropdown.Item as={Link} to="tanstack/wrapper/base">
+                    Base table
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="tanstack/wrapper/sorting">
+                    Sorting
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="tanstack/wrapper/pagination">
+                    Pagination
+                  </NavDropdown.Item>
+                </NavDropdown>
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -32,7 +43,9 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/native" element={<NativeTablePage />} />
             <Route path="/tanstack" element={<TanstackPage />} />
-            <Route path="/tanstack-wrapper" element={<TanstackWrapperPage />} />
+            <Route path="/tanstack/wrapper/base" element={<TanstackWrapperPage />} />
+            <Route path="/tanstack/wrapper/sorting" element={<TanstackWrapperPage />} />
+            <Route path="/tanstack/wrapper/pagination" element={<TableWithPaginationPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Container>

@@ -1,4 +1,5 @@
 import { Table as ReactTable } from "@tanstack/react-table";
+import { Table as BTable } from 'react-bootstrap'
 import { ReactElement } from "react";
 import { TableFooterProps } from "./TableFooter";
 import { TableRow, TableRowProps } from "./TableRow";
@@ -31,13 +32,13 @@ const Table = <DataType extends object>({
     rowComponent: RowComponent = TableRow,
     footerComponent: Footer,
 }: TableProps<DataType>): ReactElement => (
-        <table className={`table ${className}`}>
+        <BTable className={`${className}`}>
             <Header table={table} />
             <tbody>
                 {table.getRowModel().rows.map((row, index) => (<RowComponent row={row} index={index} key={row.id} />))}
             </tbody>
             {Footer && <Footer table={table} />}
-        </table>
+        </BTable>
     );
 
 export default Table;
