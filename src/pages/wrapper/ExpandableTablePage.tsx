@@ -1,10 +1,12 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Person, personData } from "../../data/person.data";
 import { getCoreRowModel, getExpandedRowModel, useReactTable } from "@tanstack/react-table";
-import Table from "../../components/table";
+import Table, { getExpandableColumn } from "../../components/table";
 import { GridColumn } from "../../components/table/Table";
+import { FormCheck } from "react-bootstrap";
 
 export const ExpandableTablePage = () => {
+    const [useGrid, setUseGrid] = useState(false);
     const data: Person[] = useMemo(() => personData, []);
     const columns: GridColumn<Person>[] = useMemo(
         () => [
@@ -26,26 +28,7 @@ export const ExpandableTablePage = () => {
                 header: 'City',
                 gridSize: '1fr'
             },
-            {
-                id: 'expander',
-                header: () => null,
-                cell: ({ row }) => {
-                    return row.getCanExpand() ? (
-                        <button
-                            {...{
-                                onClick: row.getToggleExpandedHandler(),
-                                style: { cursor: 'pointer' },
-                            }}
-                            className="btn-primary"
-                        >
-                            {row.getIsExpanded() ? '-' : '+'}
-                        </button>
-                    ) : (
-                        'x'
-                    )
-                },
-                gridSize: '3rem'
-            }
+            getExpandableColumn(),
         ],
         []
     );
@@ -61,12 +44,16 @@ export const ExpandableTablePage = () => {
     return (
         <div>
             <h1>Table with expandable</h1>
+            <FormCheck>
+                <FormCheck.Label>Turn grid on/off</FormCheck.Label>
+                <FormCheck.Input type="checkbox" checked={useGrid} onChange={() => setUseGrid(!useGrid)} />
+            </FormCheck>
             <Table
                 table={table}
                 subRowComponent={({ row }) => (<div>
-                    This is an expanded row test
+                    This is an expanded row test - {row.id}
                 </div>)}
-                grid
+                grid={useGrid}
             />
         </div>
     );
