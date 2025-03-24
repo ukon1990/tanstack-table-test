@@ -4,7 +4,6 @@ import { Person, personData } from '../data/person.data';
 
 const TanstackPage: React.FC = (): ReactElement => {
   const data: Person[] = useMemo(() => personData, []);
-
   const columns: ColumnDef<Person>[] = useMemo(
     () => [
       {
@@ -24,7 +23,7 @@ const TanstackPage: React.FC = (): ReactElement => {
   );
 
   const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() });
-  
+
   return (
     <div>
       <h1>Tanstack Headless</h1>
