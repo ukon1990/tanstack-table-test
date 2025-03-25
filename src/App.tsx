@@ -8,6 +8,7 @@ import TanstackWrapperPage from './pages/wrapper/TanstackWrapperPage';
 import TableWithPaginationPage from './pages/wrapper/TableWithPaginationPage';
 import SortableTablePage from './pages/wrapper/SortableTablePage';
 import { ExpandableTablePage } from './pages/wrapper/ExpandableTablePage';
+import ClickableRowPage from './pages/wrapper/ClickableRowPage';
 
 function App() {
 
@@ -37,6 +38,9 @@ function App() {
                   <NavDropdown.Item as={Link} to="tanstack/wrapper/expandable">
                     Expandable rows
                   </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="tanstack/wrapper/clickable">
+                    Clickable rows
+                  </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>
@@ -52,6 +56,7 @@ function App() {
             <Route path="/tanstack/wrapper/sorting" element={<SortableTablePage />} />
             <Route path="/tanstack/wrapper/pagination" element={<TableWithPaginationPage />} />
             <Route path="/tanstack/wrapper/expandable" element={<ExpandableTablePage />} />
+            <Route path="/tanstack/wrapper/clickable" element={<ClickableRowPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Container>

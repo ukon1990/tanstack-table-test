@@ -53,7 +53,7 @@ export const useClickHandler = (callback: Function, maximumAllowedMouseTravelDis
 	const onClick = useDebounce(({
 		pageY,
 		pageX,
-	}: MouseEvent<HTMLTableRowElement>) => {
+	}: MouseEvent<HTMLTableRowElement>, value: any) => {
 		// If it was a double click, we should ignore the event as the user probably wanted to select text
 		if (doubleClickTimestamp && +new Date() - doubleClickTimestamp <= doubleClickDelayInMs + doubleClickDelayOffsetInMs) {
 			doubleClickTimestamp = undefined;
@@ -71,7 +71,7 @@ export const useClickHandler = (callback: Function, maximumAllowedMouseTravelDis
 		 * Converting any negative values to a positive one with abs, so that we can allow for some movement, if we wish.
 		 */
 		if (abs(distanceTraveledSinceLastEvent) <= maximumAllowedMouseTravelDistance && callback) {
-			callback();
+			callback(value);
 		}
 		initialMouseLocation = undefined;
 	}, doubleClickDelayInMs);

@@ -25,12 +25,12 @@ export const getExpandableColumn = <DataType = any>(): GridColumn<DataType> => (
     gridSize: '5rem'
 });
 
-export const getArrowColumn = <DataType = any>(): GridColumn<DataType> => ({
+export const getArrowColumn = <DataType = any>(onClickEvent: (row: DataType) => void): GridColumn<DataType> => ({
     id: 'expander',
     header: () => null,
     cell: ({ row }) => (<button
             {...{
-                onClick: row.getToggleSelectedHandler(),
+                onClick: () => onClickEvent(row.original),
                 style: { cursor: 'pointer' },
             }}
             className="btn btn-secondary btn-sm"
