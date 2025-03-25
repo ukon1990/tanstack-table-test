@@ -1,9 +1,8 @@
 import { useCallback, useMemo, useState } from "react";
 import { Person, personData } from "../../data/person.data";
-import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import Table, { getArrowColumn } from "../../components/table";
 import { GridColumn } from "../../components/table/Table";
-import { useClickHandler } from "../../hooks";
 import { Alert } from "react-bootstrap";
 import { TableClickableRow } from "../../components/table/TableRowClickable";
 
