@@ -5,6 +5,7 @@ import Table, { getArrowColumn } from "../../components/table";
 import { GridColumn } from "../../components/table/Table";
 import { useClickHandler } from "../../hooks";
 import { Alert } from "react-bootstrap";
+import { TableClickableRow } from "../../components/table/TableRowClickable";
 
 const ClickableRowPage = () => {
     const [selectedPerson, setSelectedPerson] = useState<Person | undefined>();
@@ -13,11 +14,6 @@ const ClickableRowPage = () => {
         console.log('row', row)
         setSelectedPerson(row);
     }, [setSelectedPerson]);
-    const {
-        onMouseDown,
-        onDoubleClick,
-        onClick,
-    } = useClickHandler(onClickEvent);
 
     const data: Person[] = useMemo(() => personData, []);
     const columns: GridColumn<Person>[] = useMemo(
@@ -61,27 +57,10 @@ const ClickableRowPage = () => {
             }
             <Table
                 table={table}
-                rowComponent={({ row }) => (
-                    <tr
-                        key={row.id}
-                        onMouseDown={event => onMouseDown(event)}
-                        onDoubleClick={() => onDoubleClick()}
-                        onClick={event => onClick(event, row.original)}
-                        role="button"
-                    >
-                        {row.getVisibleCells().map(cell => (
-                            <td key={cell.id}>
-                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                            </td>
-                        ))}
-                    </tr>)}
+                rowComponent={({ row }) => (<TableClickableRow  key={row.id} row={row} onRowClick={onClickEvent} />)}
                 grid
             />
         </div>
     );
 };
 export default ClickableRowPage;
-
-function useSate<T>(): [any, any] {
-    throw new Error("Function not implemented.");
-}
